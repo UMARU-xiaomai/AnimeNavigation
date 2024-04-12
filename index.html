@@ -1,0 +1,59 @@
+<!Doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<title>AnimeNavigation</title>
+
+	<meta name="description" content="AnimeNavigation,您的追番小助手">
+		
+	<link rel="shortcut icon" href=""><!--图标-->
+	
+	<meta name="apple-mobile-web-app-title" content="AnimeNavigation">
+</head>
+<body>
+<style>
+/*--预设--*/ 
+body { padding:0px;margin: 0px; } 
+#lyrow, #lyrow input, #lyrow textarea { font-size:12px;font-family: 'Microsoft YaHei', '微软雅黑', MicrosoftJhengHei, '华文细黑', STHeiti, MingLiu; } 
+#lyrow { height:100vh;width: 100vw; } 
+#lyrow div { min-height: 18px;  } 
+#lyrow input, #lyrow textarea { border:rgb(235, 235, 235) 1px solid;border-radius: 3px;padding: 5px 8px;outline: 0; } 
+#lyrow input:hover, #lyrow textarea:hover { border: 1px solid #6bc1f2; } 
+/*--编辑--*/ 
+#lyrow .main { align-items:center;display:flex !important;justify-content:center;flex-direction:column; } 
+#lyrow .content { flex-direction:column;display:flex !important; } 
+#lyrow .title {  } 
+#lyrow .t { font-style:normal;justify-content:center;display:flex !important;font-size:45px;text-shadow:2px 2px 6px rgba(0, 0, 0, 1); } 
+
+</style>
+<div id="lyrow">
+
+        
+<div class="main">
+    <h1 class="t">AnimeNavigation<br></h1>
+<div ></div>
+<table id="latest_list"><tbody>
+<tr >
+    <td >序号</td>
+    <td >名称</td>
+    <td >更新时间</td>
+    <td >看到</td>
+    <td >最新</td>
+</tr>
+<tr >
+    <td >1</td>
+    <td >干物妹！小埋</td>
+    <td >2018</td>
+    <td >12</td>
+    <td >12</td>
+</tr></tbody>
+</table>
+<div >
+    <span id="last_update_time">上次更新时间：1990-01-01 00:00</span>    
+    <input type="submit" name="button" value="更新" ></div>
+    <a >查看/添加/修改我的追番表</a> </div>
+</div>
+<script src="/main.js"></script>
+</body>
+</html>

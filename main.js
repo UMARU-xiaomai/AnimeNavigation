@@ -6,6 +6,7 @@ UpdateTheList();
 function UpdateTheList()
 {
 	animeList = JSON.parse(getCookie("anime_list")).contents;
+	alert(JSON.stringify(animeList));
 	customWebsites = JSON.parse(getCookie("custom_websites")).contents;
 
 	
@@ -16,9 +17,9 @@ function UpdateTheList()
 		var targetWebsite = searchWebsite(defaultWebsite);
 		if(!targetWebsite)
 		{
-			for(j=0;j<animeList.ref.length&&!targetWebsite;j++)
+			for(j=0;j<animeList[i].ref.length&&!targetWebsite;j++)
 			{
-				targetWebsite = searchWebsite(animeList.ref[j].name);
+				targetWebsite = searchWebsite(animeList[i].ref[j].name);
 			}
 			if(!targetWebsite)
 			{
@@ -28,11 +29,11 @@ function UpdateTheList()
 		}
 	
 		var id = '';
-		for (j=0;j<animeList.ref.length;j++)
+		for (j=0;j<animeList[i].ref.length;j++)
 		{
-			if(animeList.ref[j].name == targetWebsite.name)
+			if(animeList[i].ref[j].name == targetWebsite.name)
 			{
-				id = animeList.ref[j].id;
+				id = animeList[i].ref[j].id;
 			}
 		}
 		if(!id)
@@ -40,9 +41,11 @@ function UpdateTheList()
 			alert('Could not find website ref with ${animeList[i].name}!');
 			continue;
 		}
-		
+
+		var episodesCount = -1;
+		var updateTime = '';
 		// 使用 Fetch API 获取 HTML 源代码
-		fetch(targetWebsite.detailUrlFormat.replace('%url%',targetWebsite.url).replace('%id%',id))
+		fetch(targetWebsite.detailUrlFormat.replace('%url%',targetWebsite.url).replace('%id%',id),{  mode: 'no-cors'})
 		  .then(response => {
 			if (!response.ok) {
 			  throw new Error('Network response was not ok');
@@ -56,10 +59,10 @@ function UpdateTheList()
 
 			// 找到目标元素并获取内容
 			const episodes = doc.querySelector(targetWebsite.episodeSelector);
-			const episodesCount = episodes.querySelectorAll().length;
+			episodesCount = episodes.querySelectorAll().length;
 
 			const updateTimeElement = doc.querySelector(targetWebsite.updateTimeSelector);
-			const updateTime = updateTimeElement.textContent.trim();
+			updateTime = updateTimeElement.textContent.trim();
 		
 		  })
 		  .catch(error => {
@@ -70,10 +73,10 @@ function UpdateTheList()
 		
 		const curRow = latestList.insertRow();
 		
-		curRow.insertCell(0).textContent = (disps.length + 1).toString();
-		curRow.insertCell(1).textContent = animeList[i];
+		curRow.insertCell(0).textContent = latestList.rows.length.toString();
+		curRow.insertCell(1).textContent = animeList[i].name;
 		curRow.insertCell(2).textContent = updateTime;
-		curRow.insertCell(3).textContent = animeList.lastWatch.toString();
+		curRow.insertCell(3).textContent = animeList[i].lastWatch.toString();
 		curRow.insertCell(4).textContent = episodesCount.toString();
 	}
 	document.getElementById('last_update_time').innerText = "上次更新时间："+Date();
@@ -106,7 +109,7 @@ function test_one()
 }
 function test_two()
 {
-	setCookie('custom_websites',`{"contents":[{"name":"wedmcc","url":"https://www.wedm8.com/","episodeSelector":"#playlist1 > ul","updateTimeSelector":"body > div.container > div:nth-child(1) > div > div.myui-content__detail > p.data.hidden-sm.hidden-xs","detailUrlFormat":"%url%/video/%url%.html","playerUrlFormat":"%url%/play/%id%-1-%episode%.html"}]}`,1);
+	setCookie('custom_websites',`{"contents":[{"name":"wedmcc","url":"https://www.wedm8.com","episodeSelector":"#playlist1 > ul","updateTimeSelector":"body > div.container > div:nth-child(1) > div > div.myui-content__detail > p.data.hidden-sm.hidden-xs","detailUrlFormat":"%url%/video/%id%.html","playerUrlFormat":"%url%/play/%id%-1-%episode%.html"}]}`,1);
 }
 //Cookie操作
 function setCookie(cname,cvalue,exdays){

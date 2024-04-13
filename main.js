@@ -101,29 +101,13 @@ function searchWebsite(name)
 
 function test_one()
 {
-	document.cookie='lastname=Smith';
-	setCookie('anime_list',`{
-	"contents":
-	[
-	{
-		"name":"干物妹！小埋",
-		"updateTime":"2018",
-		"globalId":0,
-		"lastWatch":6,
-		"defaultWebsite":"wedmcc",
-		"ref":
-		[
-		{
-			"name":"wedmcc",
-			"id":1521
-		}
-		]
-		
-	}
-	]
-}`,1);
+	
+	setCookie('anime_list',`{"contents":[{"name":"干物妹！小埋","updateTime":"2018","globalId":0,"lastWatch":6,"defaultWebsite":"wedmcc","ref":[{"name":"wedmcc","id":1521}]}]}`,1);
 }
-
+function test_two()
+{
+	setCookie('custom_websites',`{"contents":[{"name":"wedmcc","url":"https://www.wedm8.com/","episodeSelector":"#playlist1 > ul","updateTimeSelector":"body > div.container > div:nth-child(1) > div > div.myui-content__detail > p.data.hidden-sm.hidden-xs","detailUrlFormat":"%url%/video/%url%.html","playerUrlFormat":"%url%/play/%id%-1-%episode%.html"}]}`,1);
+}
 //Cookie操作
 function setCookie(cname,cvalue,exdays){
     var d = new Date();
